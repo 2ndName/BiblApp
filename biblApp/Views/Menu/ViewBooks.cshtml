@@ -1,0 +1,49 @@
+﻿@model IEnumerable<biblApp.Models.Book>
+
+<h2>Просмотр книг</h2>
+
+<table class="table">
+    <thead>
+
+        <tr>
+            <th>
+                <a asp-action="ViewBooks"
+                   asp-route-sortOrder="@ViewData["TitleSort"]"
+                   asp-route-authorId="@Context.Request.Query["authorId"]">
+                    Название
+                </a>
+            </th>
+            <th>
+                <a asp-action="ViewBooks"
+                   asp-route-sortOrder="@ViewData["PagesSort"]"
+                   asp-route-authorId="@Context.Request.Query["authorId"]">
+                    Страницы
+                </a>
+            </th>
+            <th>
+                <a asp-action="ViewBooks"
+                   asp-route-sortOrder="@ViewData["AuthorSort"]"
+                   asp-route-authorId="@Context.Request.Query["authorId"]">
+                    Автор
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var book in Model)
+    {
+        <tr>
+            <td>@book.Title</td>
+            <td>@book.Pages</td>
+            <td>@book.Author?.FullName</td>
+            <td>
+                <a asp-controller="Books"
+                   asp-action="Details"
+                   asp-route-id="@book.Id">
+                    Подробнее
+                </a>
+            </td>
+        </tr>
+    }
+</table>

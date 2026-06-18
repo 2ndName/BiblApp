@@ -1,0 +1,47 @@
+@model IEnumerable<biblApp.Models.Author>
+
+@{
+    ViewData["Title"] = "АВторы";
+}
+<div class="center-page">
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Biography)
+            </th>
+            <th>Книги</th>
+            <th>Издания</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Biography)
+            </td>
+            <td>
+                @string.Join(", ", item.Books.Select(b => b.Title))
+            </td>
+
+            <td>
+                @string.Join(", ", item.Editions.Select(e => e.Title))
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Детали</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
