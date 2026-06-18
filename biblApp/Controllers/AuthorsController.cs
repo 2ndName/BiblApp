@@ -170,9 +170,4 @@ public class AuthorsController : Controller
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
-
-    private bool AuthorExists(int? id)
-    {
-        return _context.Authors.Any(e => e.Id == id);
-    }
 }

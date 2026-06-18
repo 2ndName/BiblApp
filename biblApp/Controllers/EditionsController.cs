@@ -169,9 +169,4 @@ public class EditionsController : Controller
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
-
-    private bool EditionExists(int? id)
-    {
-        return _context.Editions.Any(e => e.Id == id);
-    }
 }
