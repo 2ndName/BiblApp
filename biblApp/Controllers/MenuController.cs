@@ -13,22 +13,26 @@ namespace biblApp.Controllers
             _context = context;
         }
 
+        // Главная страница с 3 кнопками
         public IActionResult Index()
         {
             return View();
         }
 
+        // Страница выбора для добавления
         public IActionResult Add()
         {
             return View();
         }
 
+        // Страница выбора для удаления
         public IActionResult Delete()
         {
             return View();
         }
 
-        public async Task<IActionResult> ViewBooks(int authorId, string sortOrder)
+        // Просмотр книг по авторам
+        public async Task<IActionResult> ViewBooks(int? authorId, string sortOrder)
         {
             ViewData["TitleSort"] = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewData["PagesSort"] = sortOrder == "Pages" ? "pages_desc" : "Pages";
@@ -39,6 +43,12 @@ namespace biblApp.Controllers
             var books = _context.Books
                 .Include(b => b.Author)
                 .AsQueryable();
+
+            // Фильтр по автору
+            if (authorId.HasValue)
+            {
+                books = books.Where(b => b.AuthorId == authorId);
+            }
 
             // Сортировка
             switch (sortOrder)
