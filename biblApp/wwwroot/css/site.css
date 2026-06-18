@@ -32,6 +32,7 @@ body {
 
 .center-page {
     text-align: center;
+    margin-top: 50px;
 }
 
 .center-page table {
@@ -42,9 +43,4 @@ body {
 .center-page form {
     display: inline-block;
     text-align: left;
-}
-
-.center-page {
-    text-align: center;
-    margin-top: 50px;
 }

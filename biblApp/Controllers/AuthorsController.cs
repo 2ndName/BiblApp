@@ -55,7 +55,7 @@ public class AuthorsController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(Author author)
+    public async Task<IActionResult> Create([Bind("FullName,Biography")] Author author)
     {
         if (ModelState.IsValid)
         {
@@ -146,8 +146,7 @@ public class AuthorsController : Controller
             return NotFound();
         }
 
-        var author = await _context.Authors
-            .FirstOrDefaultAsync(m => m.Id == id);
+        var author = await _context.Authors.FindAsync(id);
         if (author == null)
         {
             return NotFound();
@@ -169,10 +168,5 @@ public class AuthorsController : Controller
 
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
-    }
-
-    private bool AuthorExists(int? id)
-    {
-        return _context.Authors.Any(e => e.Id == id);
     }
 }
